@@ -3,11 +3,17 @@
 // Hotspot x/y are stored as percentages of the image dimensions for responsiveness.
 
 const TYPE_ICONS = {
-  mining:    { icon: '⛏', bg: '#b87333', border: '#7a4a1a' },
-  gathering: { icon: '🌿', bg: '#3a6a3a', border: '#1a3a1a' },
-  bug:       { icon: '🦋', bg: '#6a4a8a', border: '#3a1a5a' },
-  fishing:   { icon: '🎣', bg: '#2a5a8a', border: '#0a2a5a' },
-  bonepile:  { icon: '🦴', bg: '#7a6a4a', border: '#4a3a1a' },
+  mining:    { img: '/mapicons/mining.png',   bg: '#b87333', border: '#7a4a1a' },
+  gathering: { img: '/mapicons/herb.png',     bg: '#3a6a3a', border: '#1a3a1a' },
+  bug:       { img: '/mapicons/bug.png',      bg: '#6a4a8a', border: '#3a1a5a' },
+  fishing:   { img: '/mapicons/fish.png',     bg: '#2a5a8a', border: '#0a2a5a' },
+  bonepile:  { img: '/mapicons/bone.png',     bg: '#7a6a4a', border: '#4a3a1a' },
+  mushroom:  { img: '/mapicons/mushroom.png', bg: '#5a7a3a', border: '#2a4a1a' },
+  honey:     { img: '/mapicons/honey.png',    bg: '#9a7a1a', border: '#5a4a0a' },
+  stone:     { img: '/mapicons/stone.png',    bg: '#6a6a6a', border: '#3a3a3a' },
+  wetstone:  { img: '/mapicons/wetstone.png', bg: '#4a6a7a', border: '#1a3a4a' },
+  bait:      { img: '/mapicons/bait.png',     bg: '#2a5a8a', border: '#0a2a5a' },
+  egg:       { img: '/mapicons/egg.png',      bg: '#9a8a5a', border: '#5a4a2a' },
 }
 
 // A hotspot may have multiple resource types — render one icon per type
@@ -34,7 +40,7 @@ function HotspotIcons({ hotspot, isActive, onClick }) {
             aria-label={`Zone ${hotspot.zone} — ${type}`}
             title={`Zone ${hotspot.zone}`}
           >
-            <span className="map-hotspot-icon">{meta.icon}</span>
+            <span className="map-hotspot-icon"><img src={meta.img} alt={type} /></span>
             <span className="map-hotspot-zone">{hotspot.zone}</span>
           </button>
         )
@@ -83,7 +89,7 @@ export default function MapCanvas({ map, hotspots, activeZone, onSelectHotspot }
                 title={`Zone ${hs.zone}`}
               >
                 <span className="map-hotspot-icon">
-                  {TYPE_ICONS[hs.resources[0]?.type]?.icon || '📦'}
+                  <img src={TYPE_ICONS[hs.resources[0]?.type]?.img || '/mapicons/stone.png'} alt="" />
                 </span>
                 <span className="map-hotspot-zone">{hs.zone}</span>
               </button>

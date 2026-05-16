@@ -11,7 +11,7 @@ const MAP_META = {
   id:       'jungle',
   name:     'Jungle',
   areas:    10,
-  imageUrl: null,           // ← set to '/maps/jungle.png' once you have the image
+  imageUrl: '/maps/jungle.png',
 }
 
 export default function JungleMap({ onBack }) {

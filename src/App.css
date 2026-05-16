@@ -906,3 +906,12 @@
   }
   .mappage-left { border-right: none; padding: 12px; }
 }
+
+/* PNG icon images inside hotspots */
+.map-hotspot-icon img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  display: block;
+  image-rendering: pixelated;
+}
