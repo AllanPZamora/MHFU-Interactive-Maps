@@ -625,12 +625,13 @@
 .mappage-left {
   flex: 1;
   overflow: auto;
-  background: var(--surface);
   border-right: 2px solid var(--border);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 0;
+
+
 }
 
 .mappage-loading {
@@ -665,15 +666,38 @@
   position: relative;
   display: inline-block;
   width: 100%;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  overflow: hidden;
+}
+
+/* Layer 1 — mapback.png fills the full container */
+.map-canvas-back {
+  position: absolute;
+  inset: 0;
+  background-image: url('/maps/mapback.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 0;
+}
+
+/* Layer 2 — actual map sits on top of mapback */
+.map-canvas-map {
+  position: absolute;
+  inset: 0;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 1;
 }
 .map-canvas-img {
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 6px;
-  border: 2px solid var(--border);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-  image-rendering: pixelated; /* keep the retro pixel look */
+  image-rendering: pixelated;
+  opacity: 0;         /* invisible — only used to size the container */
+  pointer-events: none;
 }
 
 /* Empty state (no image yet) */
@@ -722,7 +746,7 @@
   border: none;
   background: none;
   padding: 0;
-  /* transforms handled inline */
+  z-index: 2;  /* above both map layers */
 }
 
 .map-hotspot-icon {

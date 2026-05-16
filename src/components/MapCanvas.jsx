@@ -54,6 +54,14 @@ export default function MapCanvas({ map, hotspots, activeZone, onSelectHotspot }
     <div className="map-canvas-wrap">
       {map.imageUrl ? (
         <div className="map-canvas-inner">
+          {/* Layer 1: mapback.png — the textured border/background */}
+          <div className="map-canvas-back" />
+          {/* Layer 2: jungle.png — the actual map on top */}
+          <div
+            className="map-canvas-map"
+            style={{ backgroundImage: `url(${map.imageUrl})` }}
+          />
+          {/* Invisible img — holds the container height so hotspot % coords stay accurate */}
           <img
             src={map.imageUrl}
             alt={map.name}
