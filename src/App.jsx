@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from 'react'
+import { useState } from 'react'
 import JungleMap from './pages/JungleMap'
 import './App.css'
 
@@ -44,46 +44,6 @@ function WelcomeScreen({ onEnter }) {
             <path d="M5 12h14M12 5l7 7-7 7"/>
           </svg>
         </button>
-      </div>
-    </div>
-  )
-}
-
-// ─── Title Card Screen ────────────────────────────────────────────────────────
-function TitleCardScreen({ onDone }) {
-  const [phase, setPhase] = useState('in') // 'in' | 'hold' | 'out'
-
-  useEffect(() => {
-    // Animate in → hold → animate out → done
-    const holdTimer  = setTimeout(() => setPhase('hold'), 800)
-    const outTimer   = setTimeout(() => setPhase('out'),  2400)
-    const doneTimer  = setTimeout(() => onDone(),         3200)
-    return () => { clearTimeout(holdTimer); clearTimeout(outTimer); clearTimeout(doneTimer) }
-  }, [onDone])
-
-  return (
-    <div className={`screen title-card-screen title-card-screen--${phase}`}>
-      <div className="title-card-bg" />
-      <div className="title-card-content">
-        <div className="title-card-eyebrow">Monster Hunter Freedom Unite</div>
-        <div className="title-card-emblem">
-          {/* Crossed blades SVG emblem */}
-          <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="36" cy="36" r="34" stroke="currentColor" strokeWidth="1.2" opacity="0.35"/>
-            <circle cx="36" cy="36" r="28" stroke="currentColor" strokeWidth="0.6" opacity="0.2"/>
-            {/* Sword 1 — diagonal \ */}
-            <line x1="20" y1="16" x2="52" y2="56" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/>
-            <polygon points="18,12 24,14 20,20" fill="currentColor" opacity="0.9"/>
-            {/* Sword 2 — diagonal / */}
-            <line x1="52" y1="16" x2="20" y2="56" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/>
-            <polygon points="54,12 48,14 52,20" fill="currentColor" opacity="0.9"/>
-            {/* Center gem */}
-            <circle cx="36" cy="36" r="4" fill="currentColor" opacity="0.7"/>
-          </svg>
-        </div>
-        <div className="title-card-main">Hunting Grounds</div>
-        <div className="title-card-sub">Select Your Area</div>
-        <div className="title-card-line" />
       </div>
     </div>
   )
@@ -181,10 +141,7 @@ export default function App() {
   return (
     <div className="app">
       {screen === 'welcome' && (
-        <WelcomeScreen onEnter={() => setScreen('titlecard')} />
-      )}
-      {screen === 'titlecard' && (
-        <TitleCardScreen onDone={() => setScreen('select')} />
+        <WelcomeScreen onEnter={() => setScreen('select')} />
       )}
       {screen === 'select' && (
         <MapSelectScreen
