@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
+import JungleMap from './pages/JungleMap'
 import './App.css'
 
 const MAPS = [
@@ -192,10 +193,14 @@ export default function App() {
         />
       )}
       {screen === 'map' && activeMap && (
-        <MapViewScreen
-          map={activeMap}
-          onBack={() => setScreen('select')}
-        />
+        activeMap.id === 'jungle' ? (
+          <JungleMap onBack={() => setScreen('select')} />
+        ) : (
+          <MapViewScreen
+            map={activeMap}
+            onBack={() => setScreen('select')}
+          />
+        )
       )}
     </div>
   )
