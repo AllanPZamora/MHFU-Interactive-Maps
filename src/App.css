@@ -659,7 +659,7 @@
 .map-canvas-wrap {
   position: relative;
   width: 100%;
-  max-width: 520px;
+  max-width: 600px;
 }
 
 .map-canvas-inner {
