@@ -19,6 +19,7 @@ export default function JungleMap({ onBack }) {
   const [loading,     setLoading]     = useState(true)
   const [activeZone,  setActiveZone]  = useState(null)
   const [activeSpot,  setActiveSpot]  = useState(null)
+  const [devMode,     setDevMode]     = useState(false)
 
   // Lazy-load the JSON data for this map only
   useEffect(() => {
@@ -53,6 +54,13 @@ export default function JungleMap({ onBack }) {
         </button>
         <h2 className="mappage-title">{MAP_META.name}</h2>
         <span className="mappage-badge">{MAP_META.areas} Areas</span>
+        <button
+          className={`dev-toggle ${devMode ? 'dev-toggle--on' : ''}`}
+          onClick={() => setDevMode(d => !d)}
+          title="Toggle pin placement mode"
+        >
+          {devMode ? '🔴 Dev ON' : '🛠 Dev'}
+        </button>
       </header>
 
       {/* ── Split layout ─────────────────────────────────── */}
@@ -70,6 +78,7 @@ export default function JungleMap({ onBack }) {
               hotspots={mapData?.hotspots ?? []}
               activeZone={activeZone}
               onSelectHotspot={handleSelectHotspot}
+              devMode={devMode}
             />
           )}
         </div>
