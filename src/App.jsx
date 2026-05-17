@@ -1,16 +1,29 @@
 import { useState } from 'react'
-import JungleMap from './pages/JungleMap'
+import JungleMap          from './pages/JungleMap'
+import SnowyMountainsMap  from './pages/SnowyMountainsMap'
+import DesertMap           from './pages/DesertMap'
+import SwampMap            from './pages/SwampMap'
+import VolcanoMap          from './pages/VolcanoMap'
+import GreatForestMap      from './pages/GreatForestMap'
+import ForestHillsMap      from './pages/ForestHillsMap'
+import OldJungleMap        from './pages/OldJungleMap'
+import OldDesertMap        from './pages/OldDesertMap'
+import OldSwampMap         from './pages/OldSwampMap'
+import OldVolcanoMap       from './pages/OldVolcanoMap'
 import './App.css'
 
 const MAPS = [
-  { id: 'jungle',   name: 'Jungle',           areas: 10, imageUrl: null },
-  { id: 'swamp',    name: 'Swamp',            areas: 10, imageUrl: null },
-  { id: 'volcano',  name: 'Volcano',          areas: 11, imageUrl: null },
-  { id: 'desert',   name: 'Desert',           areas: 10, imageUrl: null },
-  { id: 'forest',   name: 'Forest & Hills',   areas: 9,  imageUrl: null },
-  { id: 'tower',    name: 'Tower',            areas: 7,  imageUrl: null },
-  { id: 'tundra',   name: 'Snowy Mountains',  areas: 10, imageUrl: null },
-  { id: 'castle',   name: 'Castle Schrade',   areas: 10, imageUrl: null },
+  { id: 'snowy_mountains', name: 'Snowy Mountains', areas: 10 },
+  { id: 'jungle',          name: 'Jungle',           areas: 10 },
+  { id: 'desert',          name: 'Desert',           areas: 10 },
+  { id: 'swamp',           name: 'Swamp',            areas: 10 },
+  { id: 'volcano',         name: 'Volcano',          areas: 11 },
+  { id: 'great_forest',    name: 'Great Forest',     areas:  9 },
+  { id: 'forest_hills',    name: 'Forest & Hills',   areas:  9 },
+  { id: 'old_jungle',      name: 'Old Jungle',       areas:  7 },
+  { id: 'old_desert',      name: 'Old Desert',       areas:  7 },
+  { id: 'old_swamp',       name: 'Old Swamp',        areas:  7 },
+  { id: 'old_volcano',     name: 'Old Volcano',      areas:  7 },
 ]
 
 // ─── Welcome Screen ───────────────────────────────────────────────────────────
@@ -149,16 +162,23 @@ export default function App() {
           onBack={() => setScreen('welcome')}
         />
       )}
-      {screen === 'map' && activeMap && (
-        activeMap.id === 'jungle' ? (
-          <JungleMap onBack={() => setScreen('select')} />
-        ) : (
-          <MapViewScreen
-            map={activeMap}
-            onBack={() => setScreen('select')}
-          />
-        )
-      )}
+      {screen === 'map' && activeMap && (() => {
+        const props = { onBack: () => setScreen('select') }
+        switch (activeMap.id) {
+          case 'snowy_mountains': return <SnowyMountainsMap {...props} />
+          case 'jungle':          return <JungleMap          {...props} />
+          case 'desert':          return <DesertMap           {...props} />
+          case 'swamp':           return <SwampMap            {...props} />
+          case 'volcano':         return <VolcanoMap          {...props} />
+          case 'great_forest':    return <GreatForestMap      {...props} />
+          case 'forest_hills':    return <ForestHillsMap      {...props} />
+          case 'old_jungle':      return <OldJungleMap        {...props} />
+          case 'old_desert':      return <OldDesertMap        {...props} />
+          case 'old_swamp':       return <OldSwampMap         {...props} />
+          case 'old_volcano':     return <OldVolcanoMap       {...props} />
+          default: return null
+        }
+      })()}
     </div>
   )
 }

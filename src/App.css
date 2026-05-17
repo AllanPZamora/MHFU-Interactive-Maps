@@ -588,7 +588,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 13px 22px;
+  padding: 8px 15px;
   border-bottom: 2px solid var(--border);
   background: var(--surface-dark);
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
@@ -647,7 +647,7 @@
 
 /* ── Right: info panel ───────────────────────────────── */
 .mappage-right {
-  width: 320px;
+  width: 420px;
   flex-shrink: 0;
   overflow-y: auto;
   background: var(--bg);
@@ -659,15 +659,15 @@
 .map-canvas-wrap {
   position: relative;
   width: 100%;
-  max-width: 600px;
+  max-width: 460px;
 }
 
 .map-canvas-inner {
   position: relative;
   display: inline-block;
   width: 100%;
-  border-radius: 6px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  display: inline-block;
+
   overflow: hidden;
 }
 
@@ -938,4 +938,325 @@
   object-fit: contain;
   display: block;
   image-rendering: pixelated;
+}
+
+/* ══════════════════════════════════════════════════════════
+   DEV MODE
+══════════════════════════════════════════════════════════ */
+
+/* Toggle button in header */
+.dev-toggle {
+  font-family: var(--font-gothic);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 5px 12px;
+  border-radius: 4px;
+  border: 1.5px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+  color: var(--text-light-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-left: auto;
+}
+.dev-toggle:hover {
+  border-color: rgba(255,200,50,0.4);
+  color: #ffd050;
+}
+.dev-toggle--on {
+  background: rgba(200,50,50,0.15);
+  border-color: rgba(200,80,80,0.5);
+  color: #ff8080;
+}
+.dev-toggle--on:hover {
+  background: rgba(200,50,50,0.25);
+  color: #ffaaaa;
+}
+
+/* Toolbar above the map */
+.dev-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #1a1200;
+  border: 1.5px solid rgba(255,200,50,0.25);
+  border-radius: 6px 6px 0 0;
+  margin-bottom: -1px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.dev-toolbar-label {
+  font-family: var(--font-gothic);
+  font-size: 0.74rem;
+  color: #ffd050;
+  letter-spacing: 0.04em;
+}
+.dev-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dev-pin-count {
+  font-size: 0.72rem;
+  color: rgba(255,208,80,0.6);
+}
+.dev-btn {
+  font-family: var(--font-gothic);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 4px;
+  border: 1.5px solid rgba(255,208,80,0.35);
+  background: rgba(255,208,80,0.10);
+  color: #ffd050;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.dev-btn:hover:not(:disabled) {
+  background: rgba(255,208,80,0.22);
+  border-color: rgba(255,208,80,0.6);
+}
+.dev-btn:disabled { opacity: 0.35; cursor: default; }
+.dev-btn--danger {
+  border-color: rgba(220,80,80,0.35);
+  background: rgba(220,80,80,0.10);
+  color: #ff8080;
+}
+.dev-btn--danger:hover:not(:disabled) {
+  background: rgba(220,80,80,0.22);
+  border-color: rgba(220,80,80,0.6);
+}
+
+/* Map canvas in dev mode — crosshair cursor */
+.map-canvas-inner--dev {
+  cursor: crosshair;
+}
+
+/* Placed pins on the map */
+.dev-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.dev-pin-number {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ffd050;
+  color: #1a1000;
+  font-size: 10px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #a07800;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  transition: transform 0.15s;
+}
+.dev-pin:hover .dev-pin-number {
+  transform: scale(1.2);
+  background: #ff8080;
+  border-color: #a00000;
+}
+.dev-pin-coords {
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0,0,0,0.75);
+  border-radius: 3px;
+  padding: 1px 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Pin list below the map */
+.dev-pin-list {
+  margin-top: 8px;
+  background: #0f0c00;
+  border: 1.5px solid rgba(255,208,80,0.2);
+  border-radius: 6px;
+  overflow: hidden;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.dev-pin-list-title {
+  font-family: var(--font-gothic);
+  font-size: 0.70rem;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: rgba(255,208,80,0.6);
+  padding: 7px 12px;
+  border-bottom: 1px solid rgba(255,208,80,0.12);
+}
+.dev-pin-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.dev-pin-row:last-child { border-bottom: none; }
+.dev-pin-row-num {
+  font-size: 0.70rem;
+  color: #ffd050;
+  min-width: 24px;
+  font-weight: 700;
+}
+.dev-pin-row code {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.75);
+  flex: 1;
+}
+.dev-pin-remove {
+  font-size: 0.65rem;
+  color: rgba(255,100,100,0.6);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 5px;
+  border-radius: 3px;
+  transition: color 0.15s, background 0.15s;
+}
+.dev-pin-remove:hover {
+  color: #ff6060;
+  background: rgba(255,80,80,0.12);
+}
+
+/* ══════════════════════════════════════════════════════════
+   DEV — RESOURCE PICKER POPUP
+══════════════════════════════════════════════════════════ */
+.dev-picker {
+  position: absolute;
+  z-index: 50;
+  width: 230px;
+  background: #1a1200;
+  border: 1.5px solid rgba(255,208,80,0.35);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  overflow: hidden;
+  animation: picker-pop 0.15s cubic-bezier(0.16,1,0.3,1) both;
+}
+@keyframes picker-pop {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.dev-picker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 10px;
+  background: rgba(255,208,80,0.08);
+  border-bottom: 1px solid rgba(255,208,80,0.15);
+  font-family: var(--font-gothic);
+  font-size: 0.70rem;
+  font-weight: 700;
+  color: #ffd050;
+  letter-spacing: 0.04em;
+}
+.dev-picker-close {
+  background: none;
+  border: none;
+  color: rgba(255,208,80,0.5);
+  cursor: pointer;
+  font-size: 0.75rem;
+  padding: 0 2px;
+  line-height: 1;
+  transition: color 0.15s;
+}
+.dev-picker-close:hover { color: #ff8080; }
+
+.dev-picker-label {
+  font-family: var(--font-gothic);
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.06em;
+  padding: 7px 10px 4px;
+}
+
+.dev-picker-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  padding: 6px 10px 10px;
+}
+
+.dev-picker-option {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 8px;
+  border-radius: 5px;
+  border: 1.5px solid var(--opt-border, #555);
+  background: color-mix(in srgb, var(--opt-bg, #888) 20%, #1a1200);
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.dev-picker-option:hover {
+  background: color-mix(in srgb, var(--opt-bg, #888) 40%, #1a1200);
+  transform: scale(1.04);
+}
+.dev-picker-option img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  flex-shrink: 0;
+}
+.dev-picker-option span {
+  font-family: var(--font-gothic);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  white-space: nowrap;
+}
+
+/* Pin with type icon */
+.dev-pin-type-img {
+  width: 10px;
+  height: 10px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  display: none; /* shown via pin bubble below */
+}
+.dev-pin-number {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--pin-bg, #ffd050);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(0,0,0,0.4);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  transition: transform 0.15s;
+}
+.dev-pin:hover .dev-pin-number { transform: scale(1.2); }
+
+/* Pin list row — add type icon + label */
+.dev-pin-row-img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  flex-shrink: 0;
+}
+.dev-pin-row-type {
+  font-family: var(--font-gothic);
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.7);
+  flex: 1;
 }
